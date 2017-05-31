@@ -60,16 +60,18 @@ function loop(){
     };
     var req = http.request(opt, function (res) {
         if (conf.successStatusCode.indexOf(res.statusCode) != -1) {
+            var body = '';
             res.on('data', function (data) {
-                console.log("respone body: " + data);
-                var messages = JSON.parse(data);
+                body += data;
+            });
+            res.on('end', function () {
+                console.log("respone body: " + body);
+                var messages = JSON.parse(body);
                 messages.forEach(function(message) {
                     delMessage(message);
                     console.log("respone message:" + JSON.stringify(message));
                 });
                 setTimeout(loop, 5000);
-            }); 
-            res.on('end', function () {
             });
         } else {
             console.log('Not success, respone statusCode :' + res.statusCode);
