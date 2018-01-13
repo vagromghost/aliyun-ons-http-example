@@ -22,7 +22,8 @@ var opt = {
             "Signature": sign,  
             "AccessKey": conf.accessKey,
             "ProducerID": conf.producerID,
-            "Content-type": "text/html;charset=UTF-8"
+            "Content-type": "text/html;charset=UTF-8",
+            "Content-length": Buffer.byteLength(content, 'utf8')
         }  
     };
 
